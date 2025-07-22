@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reto 5 - Colores</title>
+  <style>
+    body {
+      background: #101820;
+      color: #f2f2f2;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: row;
+      padding: 50px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-right: 50px;
+    }
+
+    .sidebar button {
+      background: #005f50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-size: 13px;
+      width: 120px;
+      text-align: left;
+    }
+
+    .sidebar button:hover {
+      background: #00ffc8;
+      color: #000;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      color: #00ffc8;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    input, button.action {
+      padding: 10px;
+      width: 300px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button.action {
+      background: #00bfa5;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button.action:hover {
+      background: #00ffc8;
+      color: #000;
+    }
+
+    #marcaAgua {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      opacity: 0.1;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra lateral -->
+  <div class="sidebar">
+    <button onclick="location.href='index.html'">Inicio</button>
+    <button onclick="location.href='reto2.html'">Reto 2</button>
+    <button onclick="location.href='reto3.html'">Reto 3</button>
+    <button onclick="location.href='reto4.html'">Reto 4</button>
+    <button onclick="location.href='reto5.html'">Reto 5</button>
+    <button onclick="location.href='reto6.html'">Reto 6</button>
+    <button onclick="location.href='reto7.html'">Reto 7</button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="content">
+    <h2>Reto 5</h2>
+    <p>Pista: Ve el diseño de la página</p>
+
+    <h1>Selecciona un color</h1>
+    <input type="color" id="colorPicker">
+    <button class="action" onclick="guardarColor()">Guardar color</button>
+    <p id="colorMensaje"></p>
+
+    <h2>Ingresa la flag</h2>
+    <input type="text" id="flagInput" placeholder="flag{...}">
+    <button class="action" onclick="enviarFlag()">Enviar Flag</button>
+    <p id="respuesta"></p>
+
+    <img id="marcaAgua" src="img/imagen_logo.svg" alt="Marca de agua">
+  </div>
+
+  <script src="scripts/validate.js"></script>
+  <script>
+    const coloresUsados = JSON.parse(localStorage.getItem('coloresUsados')) || [];
+
+    function guardarColor() {
+      const color = document.getElementById("colorPicker").value;
+      if (coloresUsados.includes(color)) {
+        document.getElementById("colorMensaje").innerText = "Este color ya fue elegido. Prueba con otro.";
+        return;
+      }
+      coloresUsados.push(color);
+      localStorage.setItem("coloresUsados", JSON.stringify(coloresUsados));
+      document.body.style.backgroundColor = color;
+      document.getElementById("colorMensaje").innerText = "Color asignado correctamente.";
+    }
+
+    function enviarFlag() {
+      const flag = document.getElementById("flagInput").value;
+      fetch("../api/validate.php", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reto: "reto5", flag: flag })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("respuesta").innerText = data.mensaje;
+      });
+    }
+  </script>
+
+</body>
+</html>
