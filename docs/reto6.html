@@ -142,12 +142,12 @@
     <p id="respuesta"></p>
   </div>
 
-  <script src="../functions/flags.json"></script>
+  <script src="../functions/validateFlag.js"></script>
   <script>
 
     function enviarFlag() {
       const flag = document.getElementById("flagInput").value;
-      fetch("../functions/validateFlag.js", {
+      fetch("../functions/flags.json", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reto: "reto5", flag: flag })
