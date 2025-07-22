@@ -112,7 +112,7 @@
     <img id="marcaAgua" src="img/imagen_logo.svg" alt="Marca de agua">
   </div>
 
-  <script src="scripts/validate.js"></script>
+  <script src="../functions/flags.json"></script>
   <script>
     const coloresUsados = JSON.parse(localStorage.getItem('coloresUsados')) || [];
 
@@ -130,7 +130,7 @@
 
     function enviarFlag() {
       const flag = document.getElementById("flagInput").value;
-      fetch("../api/validate.php", {
+      fetch("../functions/validateFlag.js", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reto: "reto5", flag: flag })
