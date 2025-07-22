@@ -142,26 +142,20 @@
     <p id="respuesta"></p>
   </div>
 
+  <script src="scripts/validate.js"></script>
   <script>
+    
     function enviarFlag() {
-      const flag = document.getElementById("flagInput").value.trim();
-      if (!flag) {
-        document.getElementById("respuesta").innerText = "Por favor ingresa una flag.";
-        return;
-      }
-
+      const flag = document.getElementById("flagInput").value;
       fetch("../api/validate.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reto: "reto6", flag }),
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ reto: "reto5", flag: flag })
       })
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("respuesta").innerText = data.mensaje;
-        })
-        .catch(() => {
-          document.getElementById("respuesta").innerText = "Error en la validación.";
-        });
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("respuesta").innerText = data.mensaje;
+      });
     }
   </script>
 
