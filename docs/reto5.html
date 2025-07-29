@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Reto 5 - Colores</title>
@@ -52,7 +53,8 @@
       margin-bottom: 20px;
     }
 
-    input, button.action {
+    input,
+    button.action {
       padding: 10px;
       width: 300px;
       margin: 10px 0;
@@ -82,6 +84,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="sidebar">
@@ -110,7 +113,7 @@
     <img id="marcaAgua" src="img/imagen_logo.svg" alt="Marca de agua">
   </div>
 
-  <script src="../functions/flags.json"></script>
+  <script src="../scripts/validar_flag.js"></script>
   <script>
     const coloresUsados = JSON.parse(localStorage.getItem('coloresUsados')) || [];
 
@@ -126,22 +129,23 @@
       document.getElementById("colorMensaje").innerText = "Color asignado correctamente.";
     }
 
-    function enviarFlag() {
-      const flag = document.getElementById("flagInput").value;
-      fetch("../functions/validateFlag.js", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reto: "reto5", flag: flag })
-      })
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("respuesta").innerText = data.mensaje;
-      });
-    }
+
+    document.getElementById("enviar").addEventListener("click", function () {
+      const flag = document.getElementById("flag").value.trim();
+      const numeroReto = "2"; // Este debe ser el número del reto actual
+
+      if (validarFlag(numeroReto, flag)) {
+        alert("¡Flag correcta!");
+        // puedes redirigir o cambiar estilo
+      } else {
+        alert("Flag incorrecta. Intenta de nuevo.");
+      }
+    });
   </script>
 
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="main.js"></script>
 
 </body>
+
 </html>

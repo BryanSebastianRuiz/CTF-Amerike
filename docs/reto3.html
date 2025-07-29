@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Reto 7 - Descargas EXE</title>
@@ -85,7 +86,8 @@
       color: #000;
     }
 
-    input, button.action {
+    input,
+    button.action {
       padding: 10px;
       width: 300px;
       margin: 10px 0;
@@ -106,6 +108,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Barra lateral -->
@@ -121,7 +124,8 @@
   <!-- Contenido principal -->
   <div class="content">
 
-    <a href="https://drive.google.com/file/d/1jz1eOP74G4PPfTIGHJ0ZoDFprV0qnqPV/view?usp=drive_link" id="specialButton">Herramienta(s)</a>
+    <a href="https://drive.google.com/file/d/1jz1eOP74G4PPfTIGHJ0ZoDFprV0qnqPV/view?usp=drive_link"
+      id="specialButton">Herramienta(s)</a>
 
     <h2>Reto 3 - Ingeniería Inversa</h2>
     <p>Descarga los ejecutables y analízalos con OllyDbg</p>
@@ -136,25 +140,25 @@
 
   </div>
 
-  <script src="../functions/flags.json"></script>
+  <script src="../scripts/validar_flag.js"></script>
   <script>
+    document.getElementById("enviar").addEventListener("click", function () {
+      const flag = document.getElementById("flag").value.trim();
+      const numeroReto = "2"; // Este debe ser el número del reto actual
 
-    function enviarFlag() {
-      const flag = document.getElementById("flagInput").value;
-      fetch("../functions/validateFlag.js", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reto: "reto3", flag: flag })
-      })
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("respuesta").innerText = data.mensaje;
-      });
-    }
+      if (validarFlag(numeroReto, flag)) {
+        alert("¡Flag correcta!");
+        // puedes redirigir o cambiar estilo
+      } else {
+        alert("Flag incorrecta. Intenta de nuevo.");
+      }
+    });
   </script>
+
 
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="main.js"></script>
 
 </body>
+
 </html>

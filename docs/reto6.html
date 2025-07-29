@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Reto 6 - Encuentra la Flag en el .pcap</title>
@@ -81,7 +82,8 @@
       color: #000;
     }
 
-    input, button.action {
+    input,
+    button.action {
       padding: 10px;
       width: 300px;
       margin: 10px 0;
@@ -110,6 +112,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="sidebar">
@@ -122,13 +125,16 @@
   </div>
 
   <div class="content">
-    <a href="https://drive.google.com/file/d/1ULfH8_6GzLnoeKyKd55-EDCTbQGanaID/view?usp=drive_link" id="specialButton">Herramienta(s)</a>
+    <a href="https://drive.google.com/file/d/1ULfH8_6GzLnoeKyKd55-EDCTbQGanaID/view?usp=drive_link"
+      id="specialButton">Herramienta(s)</a>
 
     <h2>Reto 6</h2>
     <p>Pista: Se deben de checar los tamaños de los paquetes</p>
     <p class="note">
-      Hemos detectado un comportamiento anómalo en la red de la empresa. Creemos que un atacante realizó un escaneo de puertos, intentó múltiples accesos no autorizados y finalmente exfiltró información confidencial.<br><br>
-      Tu misión es analizar la captura de red <strong>analisis_de_la_empresa.pcap</strong> y encontrar la flag oculta dentro de la comunicación sospechosa.
+      Hemos detectado un comportamiento anómalo en la red de la empresa. Creemos que un atacante realizó un escaneo de
+      puertos, intentó múltiples accesos no autorizados y finalmente exfiltró información confidencial.<br><br>
+      Tu misión es analizar la captura de red <strong>analisis_de_la_empresa.pcap</strong> y encontrar la flag oculta
+      dentro de la comunicación sospechosa.
       Descarga el archivo y analízalo con Wireshark.
     </p>
 
@@ -140,25 +146,25 @@
     <p id="respuesta"></p>
   </div>
 
-  <script src="../functions/validateFlag.js"></script>
+  <script src="../scripts/validar_flag.js"></script>
   <script>
+    document.getElementById("enviar").addEventListener("click", function () {
+      const flag = document.getElementById("flag").value.trim();
+      const numeroReto = "2"; // Este debe ser el número del reto actual
 
-    function enviarFlag() {
-      const flag = document.getElementById("flagInput").value;
-      fetch("../functions/flags.json", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reto: "reto5", flag: flag })
-      })
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("respuesta").innerText = data.mensaje;
-      });
-    }
+      if (validarFlag(numeroReto, flag)) {
+        alert("¡Flag correcta!");
+        // puedes redirigir o cambiar estilo
+      } else {
+        alert("Flag incorrecta. Intenta de nuevo.");
+      }
+    });
   </script>
+
 
   <script type="module" src="firebase-config.js"></script>
   <script type="module" src="main.js"></script>
 
 </body>
+
 </html>
